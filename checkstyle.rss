@@ -3,7 +3,7 @@
 <rss version="0.91">
   <channel>
     <title>org.dthume Public - Checkstyle report</title>
-    <link>https://dthume.github.com/dthume-public/</link>
+    <link>http://dthume.github.com/dthume-public/</link>
     <description>org.dthume Public - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2011</copyright>
@@ -13,9 +13,9 @@
              Warnings: 0,
              Infos: 0
       </title>
-            <link>https://dthume.github.com/dthume-public//checkstyle.html</link>
+            <link>http://dthume.github.com/dthume-public//checkstyle.html</link>
       <description>
-        <p>Click <a href="https://dthume.github.com/dthume-public//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="http://dthume.github.com/dthume-public//checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>

@@ -28,13 +28,13 @@
     https://jira.codehaus.org/browse/DOXIASITETOOLS-61?page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel&amp;focusedCommentId=271678#comment-271678
   <googleAnalyticsAccountId>UA-23302214-1</googleAnalyticsAccountId>
    -->
-  <!-- 
+   
   <skin>
     <groupId>org.dthume</groupId>
     <artifactId>dthume-site-skin</artifactId>
     <version>0.1-SNAPSHOT</version>
   </skin>
-  --> 
+  
   <body>
     <menu ref="parent" inherit="bottom" />
     <menu ref="modules" inherit="bottom" />

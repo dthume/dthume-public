@@ -24,6 +24,16 @@
   <description>
     org.dthume parent for public projects
   </description>
+  
+  <distributionManagement>
+    <site>
+      <id>dthu.me.web</id>
+      <name>org.dthume Maven Website</name>
+      <url>
+        file:///opt/maven/sites/org/dthume/${project.artifactId}/${project.version}/
+      </url>
+    </site>
+  </distributionManagement>
 
   <properties>
     <docbook.target.directory>${project.build.directory}/docbook</docbook.target.directory>

@@ -1,0 +1,6 @@
+dthume-parent
+==========================
+David Thomas Hume
+:Author Initials: DTH
+
+Parent Project for public projects under the org.dthume group.

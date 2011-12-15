@@ -20,7 +20,7 @@
 
   <name>org.dthume Public</name>
   <inceptionYear>2011</inceptionYear>
-  <url>https://dthume.github.com/dthume-public/</url>
+  <url>http://dthume.github.com/dthume-public/</url>
 
   <description>
     org.dthume parent for public projects
@@ -29,6 +29,7 @@
   <scm>
     <connection>scm:git:git://github.com/dthume/${project.artifactId}.git</connection>
     <developerConnection>scm:git:git@github.com:dthume/${project.artifactId}.git</developerConnection>
+    <url>https://github.com/dthume/${project.artifactId}</url>
   </scm>
   
   <distributionManagement>

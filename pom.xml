@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  
+
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="
     http://maven.apache.org/POM/4.0.0
@@ -27,7 +27,7 @@
 
   <properties>
     <docbook.target.directory>${project.build.directory}/docbook</docbook.target.directory>
-    
+
     <shared.resources.directory>${project.build.directory}/etc</shared.resources.directory>
     <shared.resources.excludeTransitive>true</shared.resources.excludeTransitive>
     <shared.resources.includedArtifactIds>dthume-shared-resources</shared.resources.includedArtifactIds>
@@ -37,7 +37,7 @@
     <shared.resources.overWriteSnapshots>true</shared.resources.overWriteSnapshots>
 
     <org.dthume.dthume-shared-resources.version>0.1-SNAPSHOT</org.dthume.dthume-shared-resources.version>
-    
+
     <org.apache.maven.plugins.maven-project-info-reports-plugin.version>2.2</org.apache.maven.plugins.maven-project-info-reports-plugin.version>
   </properties>
 
@@ -118,8 +118,79 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <reportPlugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-project-info-reports-plugin</artifactId>
+              <version>${org.apache.maven.plugins.maven-project-info-reports-plugin.version}</version>
+              <configuration>
+                <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <version>${org.apache.maven.plugins.maven-javadoc-plugin.version}</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-plugin-plugin</artifactId>
+              <version>${org.apache.maven.plugins.maven-plugin-plugin.version}</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-checkstyle-plugin</artifactId>
+              <version>${org.apache.maven.plugins.maven-checkstyle-plugin.version}</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-jxr-plugin</artifactId>
+              <version>${org.apache.maven.plugins.maven-jxr-plugin.version}</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-pmd-plugin</artifactId>
+              <version>${org.apache.maven.plugins.maven-pmd-plugin.version}</version>
+              <configuration>
+                <targetJdk>${java.lang.version}</targetJdk>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-report-plugin</artifactId>
+              <version>${org.apache.maven.plugins.maven-surefire-report-plugin.version}</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-changes-plugin</artifactId>
+              <version>${org.apache.maven.plugins.maven-changes-plugin.version}</version>
+              <reportSets>
+                <reportSet>
+                  <reports>
+                    <report>changes-report</report>
+                  </reports>
+                </reportSet>
+              </reportSets>
+            </plugin>
+          </reportPlugins>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-site-descriptor</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-descriptor</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
-    
+
     <pluginManagement>
       <plugins>
         <plugin>
@@ -180,77 +251,6 @@
               ${shared.resources.directory}/org/dthume/etc/docbook/db-xhtml-customizations.xsl
             </xhtmlCustomization>
           </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-site-plugin</artifactId>
-          <configuration>
-            <reportPlugins>
-              <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>${org.apache.maven.plugins.maven-project-info-reports-plugin.version}</version>
-                <configuration>
-                  <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-                  <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                </configuration>
-              </plugin>
-              <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${org.apache.maven.plugins.maven-javadoc-plugin.version}</version>
-              </plugin>
-              <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-plugin-plugin</artifactId>
-                <version>${org.apache.maven.plugins.maven-plugin-plugin.version}</version>
-              </plugin>
-              <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${org.apache.maven.plugins.maven-checkstyle-plugin.version}</version>
-              </plugin>
-              <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>${org.apache.maven.plugins.maven-jxr-plugin.version}</version>
-              </plugin>
-              <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>${org.apache.maven.plugins.maven-pmd-plugin.version}</version>
-                <configuration>
-                  <targetJdk>${java.lang.version}</targetJdk>
-                </configuration>
-              </plugin>
-              <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>${org.apache.maven.plugins.maven-surefire-report-plugin.version}</version>
-              </plugin>
-              <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changes-plugin</artifactId>
-                <version>${org.apache.maven.plugins.maven-changes-plugin.version}</version>
-                <reportSets>
-                  <reportSet>
-                    <reports>
-                      <report>changes-report</report>
-                    </reports>
-                  </reportSet>
-                </reportSets>
-              </plugin>
-            </reportPlugins>
-          </configuration>
-          <executions>
-            <execution>
-              <id>attach-site-descriptor</id>
-              <phase>package</phase>
-              <goals>
-                <goal>attach-descriptor</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
       </plugins>
     </pluginManagement>

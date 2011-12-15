@@ -19,7 +19,7 @@
 
   <name>org.dthume Public</name>
   <inceptionYear>2011</inceptionYear>
-  <url>https://dthu.me/projects/org/dthume/${project.artifactId}/${project.version}/</url>
+  <url>http://dthu.me/projects/org/dthume/${project.artifactId}/${project.version}/</url>
 
   <description>
     org.dthume parent for public projects

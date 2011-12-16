@@ -51,7 +51,7 @@
     <shared.resources.overWriteReleases>false</shared.resources.overWriteReleases>
     <shared.resources.overWriteSnapshots>true</shared.resources.overWriteSnapshots>
 
-    <org.dthume.dthume-shared-resources.version>0.1-SNAPSHOT</org.dthume.dthume-shared-resources.version>
+    <org.dthume.dthume-shared-resources.version>0.1</org.dthume.dthume-shared-resources.version>
 
     <org.apache.maven.plugins.maven-project-info-reports-plugin.version>2.2</org.apache.maven.plugins.maven-project-info-reports-plugin.version>
   </properties>

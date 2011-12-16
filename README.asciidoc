@@ -5,5 +5,6 @@ David Thomas Hume
 
 Parent Project for public projects under the org.dthume group.
 
-The Maven generated project site can be found
-http://dthume.github.com/dthume-public[here].
+Maven generated project sites are available for the latest
+http://dthume.github.com/dthume-public/[release] and
+http://dthu.me/projects/dthume-public/[snapshot] versions.

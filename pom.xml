@@ -187,6 +187,11 @@
                 </reportSet>
               </reportSets>
             </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-changelog-plugin</artifactId>
+              <version>${org.apache.maven.plugins.maven-changelog-plugin}</version>
+            </plugin>
           </reportPlugins>
         </configuration>
         <executions>

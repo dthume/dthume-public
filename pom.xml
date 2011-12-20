@@ -160,6 +160,11 @@
             </plugin>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-jxr-plugin</artifactId>
+              <version>${org.apache.maven.plugins.maven-jxr-plugin.version}</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-plugin-plugin</artifactId>
               <version>${org.apache.maven.plugins.maven-plugin-plugin.version}</version>
             </plugin>
@@ -168,19 +173,25 @@
               <artifactId>maven-checkstyle-plugin</artifactId>
               <version>${org.apache.maven.plugins.maven-checkstyle-plugin.version}</version>
               <configuration>
-                <configLocation>${shared.resources.directory}/org/dthume/etc/checkstyle/dth-checks.xml</configLocation>
+                <configLocation>
+                  ${shared.resources.directory}/org/dthume/etc/checkstyle/dth-checks.xml
+                </configLocation>
               </configuration>
-            </plugin>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-jxr-plugin</artifactId>
-              <version>${org.apache.maven.plugins.maven-jxr-plugin.version}</version>
             </plugin>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-pmd-plugin</artifactId>
               <version>${org.apache.maven.plugins.maven-pmd-plugin.version}</version>
               <configuration>
+                <rulesets>
+                  <ruleset>
+                    ${shared.resources.directory}/org/dthume/etc/pmd/dth-rules.xml
+                  </ruleset>
+                </rulesets>
+                <excludeRoots>
+                  <excludeRoot>${basedir}/target/generated-sources/plugin</excludeRoot>
+                </excludeRoots>
+                <linkXref>true</linkXref>
                 <targetJdk>${java.lang.version}</targetJdk>
               </configuration>
             </plugin>
@@ -261,10 +272,11 @@
           <artifactId>docbkx-maven-plugin</artifactId>
           <executions>
             <execution>
+              <id>generate-site-xhtml</id>
+              <phase>pre-site</phase>
               <goals>
                 <goal>generate-xhtml</goal>
               </goals>
-              <phase>pre-site</phase>
             </execution>
           </executions>
           <configuration>

@@ -189,7 +189,9 @@
                   </ruleset>
                 </rulesets>
                 <excludeRoots>
-                  <excludeRoot>${basedir}/target/generated-sources/plugin</excludeRoot>
+                  <excludeRoot>
+                    ${basedir}/target/generated-sources/plugin
+                  </excludeRoot>
                 </excludeRoots>
                 <linkXref>true</linkXref>
                 <targetJdk>${java.lang.version}</targetJdk>

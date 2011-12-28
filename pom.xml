@@ -45,12 +45,15 @@
     <shared.resources.overWrite>false</shared.resources.overWrite>
     <shared.resources.overWriteReleases>false</shared.resources.overWriteReleases>
     <shared.resources.overWriteSnapshots>true</shared.resources.overWriteSnapshots>
+    
+    <javadoc.links.dir>${shared.resources.directory}/org/dthume/etc/javadoc/links</javadoc.links.dir>
 
     <org.dthume.dthume-shared-resources.version>0.2-SNAPSHOT</org.dthume.dthume-shared-resources.version>
     <org.easymock.version>3.1</org.easymock.version>
+    <org.springframework.version>3.0.6.RELEASE</org.springframework.version>
     <ro.isdc.wro4j.version>1.4.2</ro.isdc.wro4j.version>
 
-    <org.apache.maven.plugins.maven-project-info-reports-plugin.version>2.2</org.apache.maven.plugins.maven-project-info-reports-plugin.version>    
+    <org.apache.maven.plugins.maven-project-info-reports-plugin.version>2.2</org.apache.maven.plugins.maven-project-info-reports-plugin.version>
   </properties>
 
   <dependencies>
@@ -66,6 +69,19 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-buildnumber</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>create</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -150,12 +166,28 @@
               <artifactId>maven-javadoc-plugin</artifactId>
               <version>${org.apache.maven.plugins.maven-javadoc-plugin.version}</version>
               <configuration>
-                <detectLinks>true</detectLinks>
-                <links>
-                  <link>http://alexo.github.com/wro4j/apidocs/${ro.isdc.wro4j.version}/</link>
-                  <link>http://easymock.org/api/easymock/${org.easymock.version}/</link>
-                  <link>http://fforw.de/static/jcouchdb-javadoc/</link>
-                </links>
+                <offlineLinks>
+                  <offlineLink>
+                    <url>http://alexo.github.com/wro4j/apidocs/${ro.isdc.wro4j.version}/</url>
+                    <location>${javadoc.links.dir}/ro/isdc/wro4j</location>
+                  </offlineLink>
+                  <offlineLink>
+                    <url>http://easymock.org/api/easymock/${org.easymock.version}/</url>
+                    <location>${javadoc.links.dir}/org/easymock</location>
+                  </offlineLink>
+                  <offlineLink>
+                    <url>http://fforw.de/static/jcouchdb-javadoc/</url>
+                    <location>${javadoc.links.dir}/org/jcouchdb</location>
+                  </offlineLink>
+                  <offlineLink>
+                    <url>http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/</url>
+                    <location>${javadoc.links.dir}/org/apache/http/client</location>
+                  </offlineLink>
+                  <offlineLink>
+                    <url>http://static.springsource.org/spring/docs/${org.springframework.version}/javadoc-api/</url>
+                    <location>${javadoc.links.dir}/org/springframework</location>
+                  </offlineLink>
+                </offlineLinks>
               </configuration>
             </plugin>
             <plugin>
@@ -258,6 +290,21 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <configuration>
+            <archive>
+              <manifest>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+              </manifest>
+              <manifestEntries>
+                <Implementation-Build>${buildNumber}</Implementation-Build>
+              </manifestEntries>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
           <executions>
             <execution>
@@ -310,6 +357,11 @@
         <groupId>org.easymock</groupId>
         <artifactId>easymock</artifactId>
         <version>${org.easymock.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${org.springframework.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

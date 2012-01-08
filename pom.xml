@@ -47,6 +47,7 @@
     <shared.resources.overWriteSnapshots>true</shared.resources.overWriteSnapshots>
     
     <javadoc.links.dir>${shared.resources.directory}/org/dthume/etc/javadoc/links</javadoc.links.dir>
+    
     <!-- Dependency Versioning -->
     <org.dthume.dthume-shared-resources.version>0.2-SNAPSHOT</org.dthume.dthume-shared-resources.version>
     <org.easymock.version>3.1</org.easymock.version>
@@ -192,6 +193,14 @@
                   </offlineLink>
                 </offlineLinks>
               </configuration>
+              <reportSets>
+                <reportSet>
+                  <id>non-aggregated-javadoc</id>
+                  <reports>
+                    <report>javadoc</report>
+                  </reports>
+                </reportSet>
+              </reportSets>
             </plugin>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>

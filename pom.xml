@@ -91,7 +91,7 @@
               <goal>unpack</goal>
             </goals>
             <configuration>
-              <artifactItems>
+              <artifactItems combine.children="append">
                 <artifactItem>
                   <groupId>${shared.resources.groupId}</groupId>
                   <artifactId>${shared.resources.artifactId}</artifactId>
@@ -110,7 +110,7 @@
               <goal>unpack</goal>
             </goals>
             <configuration>
-              <artifactItems>
+              <artifactItems combine.children="append">
                 <artifactItem>
                   <groupId>${shared.resources.groupId}</groupId>
                   <artifactId>${shared.resources.artifactId}</artifactId>
@@ -244,17 +244,17 @@
               <artifactId>maven-pmd-plugin</artifactId>
               <version>${org.apache.maven.plugins.maven-pmd-plugin.version}</version>
               <configuration>
-                <rulesets>
-                  <ruleset>
-                    ${org.dthume.etc}/pmd/dth-rules.xml
-                  </ruleset>
-                </rulesets>
                 <excludeRoots>
                   <excludeRoot>
                     ${basedir}/target/generated-sources/plugin
                   </excludeRoot>
                 </excludeRoots>
                 <linkXref>true</linkXref>
+                <rulesets>
+                  <ruleset>
+                    ${org.dthume.etc}/pmd/dth-rules.xml
+                  </ruleset>
+                </rulesets>
                 <targetJdk>${java.lang.version}</targetJdk>
               </configuration>
             </plugin>

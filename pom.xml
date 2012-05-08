@@ -39,18 +39,21 @@
     <docbook.target.directory>${project.build.directory}/docbook</docbook.target.directory>
 
     <shared.resources.directory>${project.build.directory}/etc</shared.resources.directory>
-    <shared.resources.excludeTransitive>true</shared.resources.excludeTransitive>
-    <shared.resources.includedArtifactIds>dthume-shared-resources</shared.resources.includedArtifactIds>
-    <shared.resources.includedGroupIds>org.dthume</shared.resources.includedGroupIds>
     <shared.resources.overWrite>false</shared.resources.overWrite>
-    <shared.resources.overWriteReleases>false</shared.resources.overWriteReleases>
-    <shared.resources.overWriteSnapshots>true</shared.resources.overWriteSnapshots>
     
-    <javadoc.links.dir>${shared.resources.directory}/org/dthume/etc/javadoc/links</javadoc.links.dir>
+    <shared.resources.groupId>org.dthume</shared.resources.groupId>
+    <shared.resources.artifactId>dthume-shared-resources</shared.resources.artifactId>
+    <shared.resources.version>${org.dthume.dthume-shared-resources.version}</shared.resources.version>
+    <shared.resources.type>jar</shared.resources.type>
+
+    <org.dthume.etc>${shared.resources.directory}/org/dthume/etc</org.dthume.etc>
+    
+    <javadoc.links.dir>${org.dthume.etc}/javadoc/links</javadoc.links.dir>
     
     <!-- Dependency Versioning -->
     <org.dthume.dthume-shared-resources.version>0.2-SNAPSHOT</org.dthume.dthume-shared-resources.version>
     <org.easymock.version>3.1</org.easymock.version>
+    <org.mockito.version>1.9.0</org.mockito.version>
     <org.springframework.version>3.0.6.RELEASE</org.springframework.version>
     <ro.isdc.wro4j.version>1.4.2</ro.isdc.wro4j.version>
     
@@ -61,17 +64,6 @@
     <org.codehaus.mojo.jdepend-maven-plugin.version>2.0-beta-2</org.codehaus.mojo.jdepend-maven-plugin.version>
     <org.codehaus.mojo.taglist-maven-plugin.version>2.4</org.codehaus.mojo.taglist-maven-plugin.version>
   </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.dthume</groupId>
-      <artifactId>dthume-shared-resources</artifactId>
-      <version>${org.dthume.dthume-shared-resources.version}</version>
-      <type>jar</type>
-      <scope>provided</scope>
-      <optional>true</optional>
-    </dependency>
-  </dependencies>
 
   <build>
     <plugins>
@@ -96,32 +88,38 @@
             <id>unpack-shared-resources-site</id>
             <phase>pre-site</phase>
             <goals>
-              <goal>unpack-dependencies</goal>
+              <goal>unpack</goal>
             </goals>
             <configuration>
-              <includeArtifactIds>${shared.resources.includedArtifactIds}</includeArtifactIds>
-              <includeGroupIds>${shared.resources.includedGroupIds}</includeGroupIds>
-              <excludeTransitive>${shared.resources.excludeTransitive}</excludeTransitive>
-              <overWrite>${shared.resources.overWrite}</overWrite>
-              <outputDirectory>${shared.resources.directory}</outputDirectory>
-              <overWriteReleases>${shared.resources.overWriteReleases}</overWriteReleases>
-              <overWriteSnapshots>${shared.resources.overWriteSnapshots}</overWriteSnapshots>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>${shared.resources.groupId}</groupId>
+                  <artifactId>${shared.resources.artifactId}</artifactId>
+                  <version>${shared.resources.version}</version>
+                  <type>${shared.resources.type}</type>
+                  <overWrite>${shared.resources.overWrite}</overWrite>
+                  <outputDirectory>${shared.resources.directory}</outputDirectory>
+                </artifactItem>
+              </artifactItems>
             </configuration>
           </execution>
           <execution>
             <id>unpack-shared-resources-default</id>
             <phase>validate</phase>
             <goals>
-              <goal>unpack-dependencies</goal>
+              <goal>unpack</goal>
             </goals>
             <configuration>
-              <includeArtifactIds>${shared.resources.includedArtifactIds}</includeArtifactIds>
-              <includeGroupIds>${shared.resources.includedGroupIds}</includeGroupIds>
-              <excludeTransitive>${shared.resources.excludeTransitive}</excludeTransitive>
-              <overWrite>${shared.resources.overWrite}</overWrite>
-              <outputDirectory>${shared.resources.directory}</outputDirectory>
-              <overWriteReleases>${shared.resources.overWriteReleases}</overWriteReleases>
-              <overWriteSnapshots>${shared.resources.overWriteSnapshots}</overWriteSnapshots>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>${shared.resources.groupId}</groupId>
+                  <artifactId>${shared.resources.artifactId}</artifactId>
+                  <version>${shared.resources.version}</version>
+                  <type>${shared.resources.type}</type>
+                  <overWrite>${shared.resources.overWrite}</overWrite>
+                  <outputDirectory>${shared.resources.directory}</outputDirectory>
+                </artifactItem>
+              </artifactItems>
             </configuration>
           </execution>
         </executions>
@@ -130,7 +128,7 @@
         <groupId>com.mycila.maven-license-plugin</groupId>
         <artifactId>maven-license-plugin</artifactId>
         <configuration>
-          <header>${shared.resources.directory}/org/dthume/etc/license/header.txt</header>
+          <header>${org.dthume.etc}/license/header.txt</header>
           <strictCheck>true</strictCheck>
           <properties>
             <year>2011</year>
@@ -227,7 +225,7 @@
                 <effort>Max</effort>
                 <threshold>Normal</threshold>
                 <excludeFilterFile>
-                  ${shared.resources.directory}/org/dthume/etc/findbugs/excludeFilters.xml
+                  ${org.dthume.etc}/findbugs/excludeFilters.xml
                 </excludeFilterFile>
               </configuration>
             </plugin>
@@ -237,7 +235,7 @@
               <version>${org.apache.maven.plugins.maven-checkstyle-plugin.version}</version>
               <configuration>
                 <configLocation>
-                  ${shared.resources.directory}/org/dthume/etc/checkstyle/dth-checks.xml
+                  ${org.dthume.etc}/checkstyle/dth-checks.xml
                 </configLocation>
               </configuration>
             </plugin>
@@ -248,7 +246,7 @@
               <configuration>
                 <rulesets>
                   <ruleset>
-                    ${shared.resources.directory}/org/dthume/etc/pmd/dth-rules.xml
+                    ${org.dthume.etc}/pmd/dth-rules.xml
                   </ruleset>
                 </rulesets>
                 <excludeRoots>
@@ -389,21 +387,25 @@
               <goals>
                 <goal>generate-xhtml</goal>
               </goals>
+              <configuration>
+                <!-- General Config -->
+                <chunkedOutput>false</chunkedOutput>
+                <generatedSourceDirectory>
+                  ${docbook.target.directory}/xinclude
+                </generatedSourceDirectory>
+                <highlightSource>1</highlightSource>
+                <includes>*.xml</includes>
+                <targetDirectory>
+                  ${project.build.directory}/generated-site/xhtml
+                </targetDirectory>
+                <xincludeSupported>true</xincludeSupported>
+                <!-- Customisation Stylesheets -->
+                <xhtmlCustomization>
+                  ${org.dthume.etc}/docbook/db-xhtml-customizations.xsl
+                </xhtmlCustomization>
+              </configuration>
             </execution>
           </executions>
-          <configuration>
-            <!-- General Config -->
-            <chunkedOutput>false</chunkedOutput>
-            <generatedSourceDirectory>${docbook.target.directory}/xinclude</generatedSourceDirectory>
-            <highlightSource>1</highlightSource>
-            <targetDirectory>${project.build.directory}/generated-site/xhtml</targetDirectory>
-            <includes>*.xml</includes>
-            <xincludeSupported>true</xincludeSupported>
-            <!-- Customisation Stylesheets -->
-            <xhtmlCustomization>
-              ${shared.resources.directory}/org/dthume/etc/docbook/db-xhtml-customizations.xsl
-            </xhtmlCustomization>
-          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -420,6 +422,11 @@
         <groupId>org.easymock</groupId>
         <artifactId>easymock</artifactId>
         <version>${org.easymock.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${org.mockito.version}</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>

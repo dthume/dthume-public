@@ -135,7 +135,7 @@
             <owner.fullname>${projectowner.fullname}</owner.fullname>
             <owner.email>${projectowner.email}</owner.email>
           </properties>
-          <excludes>
+          <excludes combine.children="append">
             <exclude>target/**</exclude>
             <exclude>.git*</exclude>
             <exclude>README.asciidoc</exclude>

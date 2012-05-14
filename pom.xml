@@ -137,6 +137,7 @@
           </properties>
           <excludes combine.children="append">
             <exclude>target/**</exclude>
+            <exclude>src/it/**</exclude>
             <exclude>.git*</exclude>
             <exclude>README.asciidoc</exclude>
           </excludes>
@@ -272,6 +273,10 @@
               </configuration>
             </plugin>
             <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-invoker-plugin</artifactId>
+            </plugin>
+            <plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>taglist-maven-plugin</artifactId>
               <version>${org.codehaus.mojo.taglist-maven-plugin.version}</version>
@@ -350,6 +355,35 @@
               </manifestEntries>
             </archive>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-invoker-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>maven-invoker-integration-tests</id>
+              <configuration>
+                <cloneProjectsTo>
+                  ${project.build.directory}/it
+                </cloneProjectsTo>
+                <localRepositoryPath>
+                  ${project.build.directory}/local-repo
+                </localRepositoryPath>
+                <pomIncludes>
+                  <pomInclude>*/pom.xml</pomInclude>
+                </pomIncludes>
+                <projectsDirectory>src/it</projectsDirectory>
+                <settingsFile>
+                  ${org.dthume.etc}/invoker/settings.xml
+                </settingsFile>
+              </configuration>
+              <goals>
+                <goal>install</goal>
+                <goal>integration-test</goal>
+                <goal>verify</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>com.agilejava.docbkx</groupId>

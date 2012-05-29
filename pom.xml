@@ -51,8 +51,10 @@
     <javadoc.links.dir>${org.dthume.etc}/javadoc/links</javadoc.links.dir>
     
     <!-- Dependency Versioning -->
+    <org.apache.commons.commons-lang3.version>3.0.1</org.apache.commons.commons-lang3.version>
     <org.dthume.dthume-shared-resources.version>0.2-SNAPSHOT</org.dthume.dthume-shared-resources.version>
     <org.easymock.version>3.1</org.easymock.version>
+    <junit.version>4.10</junit.version>
     <org.mockito.version>1.9.0</org.mockito.version>
     <org.springframework.version>3.0.6.RELEASE</org.springframework.version>
     <ro.isdc.wro4j.version>1.4.2</ro.isdc.wro4j.version>
@@ -418,13 +420,35 @@
       </plugins>
     </pluginManagement>
   </build>
+   
+  <dependencies>
+    <dependency>
+      <groupId>${shared.resources.groupId}</groupId>
+      <artifactId>${shared.resources.artifactId}</artifactId>
+      <version>${shared.resources.version}</version>
+      <type>${shared.resources.type}</type>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
   
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>ro.isdc.wro4j</groupId>
-        <artifactId>wro4j-core</artifactId>
-        <version>${ro.isdc.wro4j.version}</version>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>net.sf.saxon</groupId>
+        <artifactId>Saxon-HE</artifactId>
+        <version>${net.sf.saxon.Saxon-HE.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${org.apache.commons.commons-lang3.version}</version>
       </dependency>
       <dependency>
         <groupId>org.easymock</groupId>
@@ -440,6 +464,11 @@
         <groupId>org.springframework</groupId>
         <artifactId>spring-web</artifactId>
         <version>${org.springframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ro.isdc.wro4j</groupId>
+        <artifactId>wro4j-core</artifactId>
+        <version>${ro.isdc.wro4j.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

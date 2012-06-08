@@ -74,10 +74,11 @@
         <artifactId>buildnumber-maven-plugin</artifactId>
         <executions>
           <execution>
-            <id>generate-buildnumber</id>
+            <id>generate-build-number-and-timestamp</id>
             <phase>validate</phase>
             <goals>
               <goal>create</goal>
+              <goal>create-timestamp</goal>
             </goals>
           </execution>
         </executions>
@@ -127,32 +128,18 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>com.mycila.maven-license-plugin</groupId>
-        <artifactId>maven-license-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>license-maven-plugin</artifactId>
         <configuration>
-          <header>${org.dthume.etc}/license/header.txt</header>
-          <strictCheck>true</strictCheck>
-          <properties>
-            <year>2011</year>
-            <owner.fullname>${projectowner.fullname}</owner.fullname>
-            <owner.email>${projectowner.email}</owner.email>
-          </properties>
-          <excludes combine.children="append">
+          <organizationName>${projectowner.fullname}</organizationName>
+          <licenseName>apache_v2</licenseName>
+          <excludes>
             <exclude>target/**</exclude>
-            <exclude>src/it/**</exclude>
+            <exclude>it/**</exclude>
             <exclude>.git*</exclude>
             <exclude>README.asciidoc</exclude>
           </excludes>
         </configuration>
-        <executions>
-          <execution>
-            <id>check-licenses</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -337,11 +324,37 @@
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-plugin-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>generate-helpmojo</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>helpmojo</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
             <sourceVersion>${java.lang.version}</sourceVersion>
             <targetVersion>${java.lang.version}</targetVersion>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-component-metadata</artifactId>
+          <executions>
+            <execution>
+              <id>generate-plexus-metadata</id>
+              <phase>process-classes</phase>
+              <goals>
+                <goal>generate-metadata</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>

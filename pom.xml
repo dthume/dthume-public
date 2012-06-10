@@ -378,6 +378,7 @@
             <execution>
               <id>maven-invoker-integration-tests</id>
               <configuration>
+                <addTestClassPath>true</addTestClassPath>
                 <cloneProjectsTo>
                   ${project.build.directory}/it
                 </cloneProjectsTo>

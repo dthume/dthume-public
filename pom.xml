@@ -486,4 +486,41 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+  
+  <profiles>
+    <profile>
+      <id>skip-all-tests</id>
+      <activation>
+        <property>
+          <name>skipTests</name>
+        </property>
+      </activation>
+      <properties>
+        <maven.test.skip>true</maven.test.skip>
+        <invoker.skip>true</invoker.skip>
+      </properties>
+    </profile>
+    <profile>
+      <id>skip-unit-tests</id>
+      <activation>
+        <property>
+          <name>skipUT</name>
+        </property>
+      </activation>
+      <properties>
+        <maven.test.skip>true</maven.test.skip>
+      </properties>
+    </profile>
+    <profile>
+      <id>skip-integration-tests</id>
+      <activation>
+        <property>
+          <name>skipIT</name>
+        </property>
+      </activation>
+      <properties>
+        <invoker.skip>true</invoker.skip>
+      </properties>
+    </profile>
+  </profiles>
 </project>

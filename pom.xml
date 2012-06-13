@@ -418,7 +418,7 @@
                   ${docbook.target.directory}/xinclude
                 </generatedSourceDirectory>
                 <highlightSource>1</highlightSource>
-                <includes>*.xml</includes>
+                <includes>**/*.xml</includes>
                 <targetDirectory>
                   ${project.build.directory}/generated-site/xhtml
                 </targetDirectory>

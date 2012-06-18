@@ -15,7 +15,7 @@
 
   <name>org.dthume Public</name>
   <inceptionYear>2011</inceptionYear>
-  <url>http://dthume.github.com/dthume-public/</url>
+  <url>http://dthume.github.com/${project.artifactId}/</url>
 
   <description>
     org.dthume parent for public projects
@@ -306,6 +306,17 @@
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-changelog-plugin</artifactId>
               <version>${org.apache.maven.plugins.maven-changelog-plugin}</version>
+              <configuration>
+                <displayChangeSetDetailUrl>
+                  ${project.scm.url}/commit/%REV%
+                </displayChangeSetDetailUrl>
+                <displayFileDetailUrl>
+                  ${project.scm.url}/blob/master/%FILE%
+                </displayFileDetailUrl>
+                <displayFileRevDetailUrl>
+                  ${project.scm.url}/blob/%REV%/%FILE%
+                </displayFileRevDetailUrl>
+              </configuration>
             </plugin>
           </reportPlugins>
         </configuration>

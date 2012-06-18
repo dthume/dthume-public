@@ -511,7 +511,7 @@
       <id>facet-groovy</id>
       <activation>
         <file>
-          <exists>src/facets/groovy</exists>
+          <exists>facets/groovy</exists>
         </file>
       </activation>
       <build>

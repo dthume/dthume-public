@@ -134,36 +134,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>prepare-ut-agent</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-            <configuration>
-              <destFile>${org.jacoco.ut.dataFile}</destFile>
-              <propertyName>org.jacoco.unitArgLine</propertyName>
-              <skip>${maven.test.skip}</skip>
-            </configuration>
-          </execution>
-          <execution>
-            <id>prepare-it-agent</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-            <configuration>
-              <destFile>${org.jacoco.it.dataFile}</destFile>
-              <propertyName>org.jacoco.itArgLine</propertyName>
-              <skip>${org.dthume.it.skip}</skip>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
@@ -361,6 +331,36 @@
 
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>prepare-ut-agent</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+              <configuration>
+                <destFile>${org.jacoco.ut.dataFile}</destFile>
+                <propertyName>org.jacoco.unitArgLine</propertyName>
+                <skip>${maven.test.skip}</skip>
+              </configuration>
+            </execution>
+            <execution>
+              <id>prepare-it-agent</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+              <configuration>
+                <destFile>${org.jacoco.it.dataFile}</destFile>
+                <propertyName>org.jacoco.itArgLine</propertyName>
+                <skip>${org.dthume.it.skip}</skip>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-plugin-plugin</artifactId>

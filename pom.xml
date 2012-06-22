@@ -424,6 +424,9 @@
                 <localRepositoryPath>
                   ${project.build.directory}/local-repo
                 </localRepositoryPath>
+                <goals>
+                  <goal>verify</goal>
+                </goals>
                 <mavenOpts>${org.jacoco.itArgLine}</mavenOpts>
                 <pomIncludes>
                   <pomInclude>*/pom.xml</pomInclude>

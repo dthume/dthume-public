@@ -49,7 +49,13 @@
     <org.dthume.etc>${shared.resources.directory}/org/dthume/etc</org.dthume.etc>
     
     <javadoc.links.dir>${org.dthume.etc}/javadoc/links</javadoc.links.dir>
-    
+
+    <org.jacoco.it.dataFile>${project.build.directory}/jacoco-it.exec</org.jacoco.it.dataFile>
+    <org.jacoco.ut.dataFile>${project.build.directory}/jacoco-ut.exec</org.jacoco.ut.dataFile>
+
+    <!-- Mojo Execution Control -->
+    <org.dthume.it.skip>${maven.test.skip}</org.dthume.it.skip>
+ 
     <!-- Dependency Versioning -->
     <org.apache.commons.commons-lang3.version>3.0.1</org.apache.commons.commons-lang3.version>
     <org.codehaus.groovy.version>1.8.6</org.codehaus.groovy.version>
@@ -62,7 +68,6 @@
     
     <!-- Plugin Versioning -->
     <org.apache.maven.plugins.maven-project-info-reports-plugin.version>2.2</org.apache.maven.plugins.maven-project-info-reports-plugin.version>
-    <org.codehaus.mojo.cobertura-maven-plugin.version>2.5.1</org.codehaus.mojo.cobertura-maven-plugin.version>
     <org.codehaus.mojo.findbugs-maven-plugin.version>2.3.3</org.codehaus.mojo.findbugs-maven-plugin.version>
     <org.codehaus.mojo.jdepend-maven-plugin.version>2.0-beta-2</org.codehaus.mojo.jdepend-maven-plugin.version>
     <org.codehaus.mojo.taglist-maven-plugin.version>2.4</org.codehaus.mojo.taglist-maven-plugin.version>
@@ -124,6 +129,36 @@
                   <outputDirectory>${shared.resources.directory}</outputDirectory>
                 </artifactItem>
               </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>prepare-ut-agent</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+            <configuration>
+              <destFile>${org.jacoco.ut.dataFile}</destFile>
+              <propertyName>org.jacoco.unitArgLine</propertyName>
+              <skip>${maven.test.skip}</skip>
+            </configuration>
+          </execution>
+          <execution>
+            <id>prepare-it-agent</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+            <configuration>
+              <destFile>${org.jacoco.it.dataFile}</destFile>
+              <propertyName>org.jacoco.itArgLine</propertyName>
+              <skip>${org.dthume.it.skip}</skip>
             </configuration>
           </execution>
         </executions>
@@ -252,15 +287,7 @@
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-surefire-report-plugin</artifactId>
-              <version>${org.apache.maven.plugins.maven-surefire-report-plugin.version}</version>
-            </plugin>
-            <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>cobertura-maven-plugin</artifactId>
-              <version>${org.codehaus.mojo.cobertura-maven-plugin.version}</version>
-              <configuration>
-                <omitGplFiles>true</omitGplFiles>
-              </configuration>
+              <version>${org.apache.maven.plugins.maven-surefire-plugin.version}</version>
             </plugin>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -397,6 +424,7 @@
                 <localRepositoryPath>
                   ${project.build.directory}/local-repo
                 </localRepositoryPath>
+                <mavenOpts>${org.jacoco.itArgLine}</mavenOpts>
                 <pomIncludes>
                   <pomInclude>*/pom.xml</pomInclude>
                 </pomIncludes>
@@ -404,12 +432,25 @@
                 <settingsFile>
                   ${org.dthume.etc}/invoker/settings.xml
                 </settingsFile>
+                <skipInvocation>${org.dthume.it.skip}</skipInvocation>
               </configuration>
               <goals>
                 <goal>install</goal>
                 <goal>integration-test</goal>
                 <goal>verify</goal>
               </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>default-test</id>
+              <configuration>
+                <argLine>${org.jacoco.utArgLine}</argLine>
+              </configuration>
             </execution>
           </executions>
         </plugin>
@@ -540,18 +581,6 @@
       </activation>
       <properties>
         <maven.test.skip>true</maven.test.skip>
-        <invoker.skip>true</invoker.skip>
-      </properties>
-    </profile>
-    <profile>
-      <id>skip-unit-tests</id>
-      <activation>
-        <property>
-          <name>skipUT</name>
-        </property>
-      </activation>
-      <properties>
-        <maven.test.skip>true</maven.test.skip>
       </properties>
     </profile>
     <profile>
@@ -562,7 +591,7 @@
         </property>
       </activation>
       <properties>
-        <invoker.skip>true</invoker.skip>
+        <org.dthume.it.skip>true</org.dthume.it.skip>
       </properties>
     </profile>
   </profiles>
